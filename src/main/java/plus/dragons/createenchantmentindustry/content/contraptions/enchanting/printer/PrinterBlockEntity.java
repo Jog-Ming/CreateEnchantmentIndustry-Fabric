@@ -8,6 +8,10 @@ import static plus.dragons.createenchantmentindustry.EnchantmentIndustry.UNIT_PE
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.fabricators_of_create.porting_lib.transfer.fluid.FluidTransferable;
+
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemTransferable;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,7 +31,6 @@ import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -54,7 +57,7 @@ import plus.dragons.createenchantmentindustry.foundation.advancement.CeiAdvancem
 import plus.dragons.createenchantmentindustry.foundation.advancement.CeiTriggers;
 import plus.dragons.createenchantmentindustry.foundation.config.CeiConfigs;
 
-public class PrinterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, SidedStorageBlockEntity {
+public class PrinterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, FluidTransferable, ItemTransferable {
 
     public static final int COPYING_TIME = 100;
     protected BeltProcessingBehaviour beltProcessing;

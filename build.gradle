@@ -1,10 +1,5 @@
-//file:noinspection GroovyAssignabilityCheck
-//file:noinspection GroovyAccessibility
-//file:noinspection GradlePackageVersionRange
 plugins {
-	id "fabric-loom" version "1.0.+"
-	id "io.github.juuxel.loom-vineflower" version "1.+" // Vineflower, a better decompiler
-	id "io.github.p03w.machete" version "1.+" // automatic jar compressing on build
+	id "fabric-loom" version "1.7-SNAPSHOT"
 	id "maven-publish"
 }
 
@@ -18,17 +13,13 @@ version = mod_version
 repositories {
 	maven { url = "https://maven.shedaniel.me/" } // Cloth Config, REI
 	maven { url = "https://maven.blamejared.com/" } // JEI
-	maven { url = "https://maven.parchmentmc.org" } // Parchment mappings
-	maven { url = "https://maven.quiltmc.org/repository/release" } // Quilt Mappings
 	maven { url = "https://api.modrinth.com/maven" } // LazyDFU
 	maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
 	maven { url = "https://mvn.devos.one/snapshots/" } // Create, Porting Lib, Forge Tags, Milk Lib, Registrate
-	maven { url = "https://cursemaven.com" } // Forge Config API Port
+	maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // Forge Config API Port
 	maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
 	maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
 	maven { url = "https://maven.tterrag.com/" } // Flywheel
-	maven { url = "https://maven.dragons.plus/releases" } // DragonLib
-	maven { url = "https://maven.dragons.plus/snapshots" } // DragonLib snapshot
 	mavenLocal() // Fast test
 }
 
@@ -63,11 +54,7 @@ loom {
 dependencies {
 	// Setup
 	minecraft("com.mojang:minecraft:${minecraft_version}")
-	mappings(loom.layered {
-		//it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${qm_version}:intermediary-v2")
-		it.parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
-		it.officialMojangMappings { nameSyntheticMembers = false }
-	})
+	mappings(loom.layered {officialMojangMappings { nameSyntheticMembers = false }})
 	modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
 
 	// dependencies

@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +18,7 @@ import plus.dragons.createenchantmentindustry.foundation.config.CeiConfigs;
 public class DeployerFakePlayerMixin {
 
     @Inject(method = "deployerKillsDoNotSpawnXP", at = @At(value = "HEAD"), cancellable = true)
-    private static void deployerKillsSpawnXpNuggets(int i, Player player, LivingEntity entity, CallbackInfoReturnable<Integer> cir) {
+    private static void deployerKillsSpawnXpNuggets(int i, Player player, CallbackInfoReturnable<Integer> cir) {
 		if (player instanceof DeployerFakePlayer FakePlayer){
 			int xp = i;
 			if (xp <= 0) return;

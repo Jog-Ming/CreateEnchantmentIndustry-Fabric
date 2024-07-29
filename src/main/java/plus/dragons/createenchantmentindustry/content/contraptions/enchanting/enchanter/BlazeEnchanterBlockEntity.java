@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import io.github.fabricators_of_create.porting_lib.transfer.fluid.FluidTransferable;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemTransferable;
+import net.minecraft.network.chat.TextComponent;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
@@ -32,7 +36,6 @@ import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.ChatFormatting;
@@ -70,7 +73,7 @@ import plus.dragons.createenchantmentindustry.entry.CeiTags;
 import plus.dragons.createenchantmentindustry.foundation.advancement.CeiAdvancements;
 import plus.dragons.createenchantmentindustry.foundation.config.CeiConfigs;
 
-public class BlazeEnchanterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, MenuProvider, SidedStorageBlockEntity {
+public class BlazeEnchanterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, MenuProvider, FluidTransferable, ItemTransferable {
 
     public static final int ENCHANTING_TIME = 200;
     SmartFluidTankBehaviour internalTank;
@@ -545,20 +548,20 @@ public class BlazeEnchanterBlockEntity extends SmartBlockEntity implements IHave
         if (targetItem != null && targetItem.is(CeiItems.ENCHANTING_GUIDE.get())) {
             EnchantmentEntry entry = Enchanting.getTargetEnchantment(targetItem, hyper());
             if (entry != null) {
-                tooltip.add(Component.literal("     ")
+                tooltip.add(new TextComponent("     ")
                         .append(entry.getFirst().getFullname(entry.getSecond())));
                 if (!entry.valid())
-                    tooltip.add(Component.literal("     ")
+                    tooltip.add(new TextComponent("     ")
                             .append(LANG.translate("gui.goggles.blaze_enchanter.invalid_target").component())
                             .withStyle(ChatFormatting.RED));
                 else {
                     int consumption = (int) (Enchanting.getExperienceConsumption(entry.getFirst(), entry.getSecond()) * CeiConfigs.SERVER.enchantByBlazeEnchanterCostCoefficient.get());
                     if (consumption > CeiConfigs.SERVER.blazeEnchanterTankCapacity.get() * UNIT_PER_MB)
-                        tooltip.add(Component.literal("     ").append(LANG.translate("gui.goggles.too_expensive")
+                        tooltip.add(new TextComponent("     ").append(LANG.translate("gui.goggles.too_expensive")
                                         .component())
                                 .withStyle(ChatFormatting.RED));
                     else
-                        tooltip.add(Component.literal("     ")
+                        tooltip.add(new TextComponent("     ")
                                 .append(LANG.translate("gui.goggles.xp_consumption", consumption / UNIT_PER_MB).component())
                                 .withStyle(ChatFormatting.GREEN));
                 }

@@ -75,7 +75,7 @@ public class EnchantingGuideMenu extends GhostItemMenu<ItemStack> {
 
     @Override
     protected ItemStackHandler createGhostInventory() {
-        return new ItemStackHandler(1);
+        return new EnchantingItemStackHandler(1);
     }
 
     @Override
@@ -168,7 +168,7 @@ public class EnchantingGuideMenu extends GhostItemMenu<ItemStack> {
 				ItemVariant itemVariant = ItemVariant.of(copy);
 				try(Transaction t = TransferUtil.getTransaction()) {
 					try (Transaction nested = t.openNested()) {
-						ghostInventory.insertSlot(0, itemVariant, copy.getCount(), nested);
+						((EnchantingItemStackHandler) ghostInventory).insertSlot(0, itemVariant, copy.getCount(), nested);
 						getSlot(36).setChanged();
 					}
 				}
@@ -177,7 +177,7 @@ public class EnchantingGuideMenu extends GhostItemMenu<ItemStack> {
         } else {
 			try(Transaction t = TransferUtil.getTransaction()) {
 				try (Transaction nested = t.openNested()) {
-					ghostInventory.extractSlot(0, ItemVariant.of(ghostInventory.getStackInSlot(0)),1, nested);
+					((EnchantingItemStackHandler) ghostInventory).extractSlot(0, ItemVariant.of(ghostInventory.getStackInSlot(0)),1, nested);
 					getSlot(index).setChanged();
 				}
 			}

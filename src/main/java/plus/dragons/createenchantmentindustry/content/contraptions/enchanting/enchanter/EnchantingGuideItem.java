@@ -2,6 +2,8 @@ package plus.dragons.createenchantmentindustry.content.contraptions.enchanting.e
 
 import java.util.List;
 
+import net.minecraft.network.chat.TranslatableComponent;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
@@ -92,10 +94,10 @@ public class EnchantingGuideItem extends Item implements MenuProvider {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        pTooltipComponents.add(Component.translatable("item.create_enchantment_industry.enchanting_guide.tooltip.current_enchantment"));
+        pTooltipComponents.add(new TranslatableComponent("item.create_enchantment_industry.enchanting_guide.tooltip.current_enchantment"));
         EnchantmentEntry enchantment = getEnchantment(pStack);
         if (enchantment == null) {
-            pTooltipComponents.add(Component.translatable("item.create_enchantment_industry.enchanting_guide.tooltip.not_configured"));
+            pTooltipComponents.add(new TranslatableComponent("item.create_enchantment_industry.enchanting_guide.tooltip.not_configured"));
         } else
             pTooltipComponents.add(enchantment.getFirst().getFullname(enchantment.getSecond()));
     }

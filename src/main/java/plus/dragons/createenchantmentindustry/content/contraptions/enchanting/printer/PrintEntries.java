@@ -13,6 +13,8 @@ import com.simibubi.create.AllItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -82,7 +84,7 @@ public class PrintEntries {
             b.forGoggles(tooltip, 1);
             boolean tooExpensive = Printing.isTooExpensive(this, target, CeiConfigs.SERVER.copierTankCapacity.get() * UNIT_PER_MB);
             if (tooExpensive)
-                tooltip.add(Component.literal("     ").append(LANG.translate(
+                tooltip.add(new TextComponent("     ").append(LANG.translate(
                         "gui.goggles.too_expensive").component()
                 ).withStyle(ChatFormatting.RED));
             else{
@@ -91,7 +93,7 @@ public class PrintEntries {
                         .stream()
                         .map(entry -> entry.getValue()>entry.getKey().getMaxLevel())
                         .reduce(false, (a,a2)->a||a2);
-                tooltip.add(Component.literal("     ").append(LANG.translate(
+                tooltip.add(new TextComponent("     ").append(LANG.translate(
                         hyper ? "gui.goggles.hyper_xp_consumption": "gui.goggles.xp_consumption",
                         String.valueOf((int) (getExperienceFromItem(target) * CeiConfigs.SERVER.copyEnchantedBookCostCoefficient.get()) / UNIT_PER_MB)).component()
                 ).withStyle(hyper? ChatFormatting.AQUA: ChatFormatting.GREEN));
@@ -99,7 +101,7 @@ public class PrintEntries {
             var map = EnchantmentHelper.getEnchantments(target);
             for (var e : map.entrySet()) {
                 Component name = e.getKey().getFullname(e.getValue());
-                tooltip.add(Component.literal("     ").append(name).withStyle(name.getStyle()));
+                tooltip.add(new TextComponent("     ").append(name).withStyle(name.getStyle()));
             }
         }
 
@@ -176,11 +178,11 @@ public class PrintEntries {
                             .style(ChatFormatting.DARK_GRAY));
             b.forGoggles(tooltip, 1);
             if (Printing.isTooExpensive(this, target, CeiConfigs.SERVER.copierTankCapacity.get() * UNIT_PER_MB))
-                tooltip.add(Component.literal("     ").append(LANG.translate(
+                tooltip.add(new TextComponent("     ").append(LANG.translate(
                         "gui.goggles.too_expensive").component()
                 ).withStyle(ChatFormatting.RED));
             else
-                tooltip.add(Component.literal("     ").append(LANG.translate(
+                tooltip.add(new TextComponent("     ").append(LANG.translate(
                         "gui.goggles.ink_consumption",
                         String.valueOf(CeiConfigs.SERVER.copyWrittenBookCostPerPage.get() * page)).component()
                 ).withStyle(ChatFormatting.DARK_GRAY));
@@ -235,18 +237,18 @@ public class PrintEntries {
         @Override
         public void addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking, ItemStack target) {
             var b = LANG.builder()
-                    .add(Component.translatable(target.getDescriptionId()).withStyle(ChatFormatting.LIGHT_PURPLE))
+                    .add(new TranslatableComponent(target.getDescriptionId()).withStyle(ChatFormatting.LIGHT_PURPLE))
                     .text(ChatFormatting.GREEN, " / ")
                     .add(LANG.itemName(target)
                             .style(ChatFormatting.GREEN));
             b.forGoggles(tooltip, 1);
             boolean tooExpensive = Printing.isTooExpensive(this, target, CeiConfigs.SERVER.copierTankCapacity.get() * UNIT_PER_MB);
             if (tooExpensive)
-                tooltip.add(Component.literal("     ").append(LANG.translate(
+                tooltip.add(new TextComponent("     ").append(LANG.translate(
                         "gui.goggles.too_expensive").component()
                 ).withStyle(ChatFormatting.RED));
             else
-                tooltip.add(Component.literal("     ").append(LANG.translate(
+                tooltip.add(new TextComponent("     ").append(LANG.translate(
                         "gui.goggles.xp_consumption",
                         String.valueOf(CeiConfigs.SERVER.copyNameTagCost.get())).component()
                 ).withStyle(ChatFormatting.GREEN));
@@ -255,7 +257,7 @@ public class PrintEntries {
         @Override
         public MutableComponent getDisplaySourceContent(ItemStack target) {
             return LANG.builder()
-                    .add(Component.translatable(target.getDescriptionId()))
+                    .add(new TranslatableComponent(target.getDescriptionId()))
                     .text(" / ")
                     .add(LANG.itemName(target)).component();
         }
@@ -299,11 +301,11 @@ public class PrintEntries {
 			b.forGoggles(tooltip, 1);
 			boolean tooExpensive = Printing.isTooExpensive(this, target, CeiConfigs.SERVER.copierTankCapacity.get() * UNIT_PER_MB);
 			if (tooExpensive)
-				tooltip.add(Component.literal("     ").append(LANG.translate(
+				tooltip.add(new TextComponent("     ").append(LANG.translate(
 						"gui.goggles.too_expensive").component()
 				).withStyle(ChatFormatting.RED));
 			else
-				tooltip.add(Component.literal("     ").append(LANG.translate(
+				tooltip.add(new TextComponent("     ").append(LANG.translate(
 						"gui.goggles.ink_consumption",
 						String.valueOf(CeiConfigs.SERVER.copyTrainScheduleCost.get())).component()
 				).withStyle(ChatFormatting.DARK_GRAY));
@@ -353,11 +355,11 @@ public class PrintEntries {
 			b.forGoggles(tooltip, 1);
 			boolean tooExpensive = Printing.isTooExpensive(this, target, CeiConfigs.SERVER.copierTankCapacity.get() * UNIT_PER_MB);
 			if (tooExpensive)
-				tooltip.add(Component.literal("     ").append(LANG.translate(
+				tooltip.add(new TextComponent("     ").append(LANG.translate(
 						"gui.goggles.too_expensive").component()
 				).withStyle(ChatFormatting.RED));
 			else
-				tooltip.add(Component.literal("     ").append(LANG.translate(
+				tooltip.add(new TextComponent("     ").append(LANG.translate(
 						"gui.goggles.ink_consumption",
 						String.valueOf(CeiConfigs.SERVER.copyClipboardCost.get())).component()
 				).withStyle(ChatFormatting.DARK_GRAY));
