@@ -1,5 +1,5 @@
 plugins {
-	id "fabric-loom" version "1.7-SNAPSHOT"
+	id "fabric-loom" version "1.5-SNAPSHOT"
 	id "maven-publish"
 }
 
@@ -48,6 +48,12 @@ loom {
 		server {
 			runDir "run/server"
 		}
+	}
+}
+
+configurations.configureEach {
+	resolutionStrategy {
+		force("net.fabricmc:fabric-loader:${fabric_loader_version}")
 	}
 }
 
@@ -108,6 +114,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = Integer.parseInt(sourceCompatibility)
+	options.deprecation = true
 }
 
 java {

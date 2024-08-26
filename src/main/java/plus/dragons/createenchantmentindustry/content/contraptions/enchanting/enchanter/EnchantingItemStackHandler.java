@@ -14,7 +14,7 @@ public class EnchantingItemStackHandler extends ItemStackHandler {
 	public long insertSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
 		if (slot < 0 || slot > getSlots())
 			return 0;
-		ItemStack stack = stacks[slot];
+		@SuppressWarnings("deprecation") ItemStack stack = stacks[slot];
 		if (!isItemValid(slot, resource))
 			return 0;
 		if (!stack.isEmpty()) { // add to an existing stack
@@ -27,7 +27,7 @@ public class EnchantingItemStackHandler extends ItemStackHandler {
 	public long extractSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
 		if (slot < 0 || slot > getSlots())
 			return 0;
-		ItemStack stack = stacks[slot];
+		@SuppressWarnings("deprecation") ItemStack stack = stacks[slot];
 		if (stack.isEmpty() || !resource.matches(stack))
 			return 0;
 		int count = stack.getCount();
